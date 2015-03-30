@@ -1,0 +1,40 @@
+<ion-view view-title="Story">
+    <ion-content>
+        <ion-item>
+            <div class="list card" >
+	        <div class="item item-avatar">
+		  <img src="img/{{story.photo}}">
+
+                  <h2>{{story.name}}</h2>
+                  <h2>{{story.age}}</h2>
+		<div>
+
+		<div class="item item-body">
+                  <h2>{{story.title}}</h2>
+		  <p>{{story.story}}</p>
+		  <div ng-show="summitSuccess">
+		    <h2>Comment:<h2> 
+			<p>{{loginData.comment}}<p>
+		  </div>
+		</div>
+
+		<div class="item tabs tabs-secondary tabs-icon-left">
+
+		  <a class="tab-item" ng-click="likecount()">
+		    <i class="icon ion-thumbsup"  ></i>
+		    Like <span>{{loginData.like}}<span>
+		  </a>
+
+		  <a class="tab-item">
+		    <i class="icon ion-chatbox"></i>
+		    Comment
+		  </a>
+
+		  <a class="tab-item" ng-controller="PaypalCtrl"  ng-click="Payment(5, 'http://localhost:8100/#/app/stories', 'http://www.baidu.com', DonateError);">
+		    <i class="icon ion-social-usd"></i>
+		    Donate
+		  </a>		  
+		</div>
+            </div>
+    </ion-content>
+</ion-view>

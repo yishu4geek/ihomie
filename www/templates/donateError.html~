@@ -1,0 +1,10 @@
+<ion-modal-view>
+  <ion-content>
+    <div class="card">
+      <div class="item item-text-wrap">
+	Connection Error
+	Please Check Network Connection
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

@@ -1,0 +1,119 @@
+var DonateError = function() {
+    alert('donation failed');
+}
+
+var StarterControllers = angular.module('starter.controllers', ['ngResource']);
+
+StarterControllers
+    .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $rootScope) {
+	$rootScope.hostname = 'https://secretprayer.herokuapp.com';
+        // Form data for the login modal
+        $scope.loginData = {};
+
+        // Create the login modal that we will use later
+        $ionicModal.fromTemplateUrl('templates/login.html', {
+            scope: $scope
+        }).then(function (modal) {
+            $scope.modal = modal;
+        });
+
+	$ionicModal.fromTemplateUrl('templates/comment.html', {
+            scope: $scope
+        }).then(function (modal) {
+            $scope.modal = modal;
+        });
+
+        // Triggered in the login modal to close it
+        $scope.closeLogin = function () {
+            $scope.modal.hide();
+        };
+
+        // Open the login modal
+        $scope.login = function () {
+            $scope.modal.show();
+        };
+
+	$scope.summitSuccess = false;
+	$scope.comment = function () {
+            $scope.modal.show();
+        };
+        $scope.closecomment = function () {
+            $scope.modal.hide();
+        };
+         $scope.summit = function () {
+            $scope.summitSuccess = true;
+            console.log('Doing summit',$scope.loginData.comment);
+
+        };
+
+        // Perform the login action when the user submits the login form
+        $scope.doLogin = function () {
+            console.log('Doing login', $scope.loginData);
+
+            // Simulate a login delay. Remove this and replace with your login
+            // code if using a login system
+            $timeout(function () {
+                $scope.closeLogin();
+            }, 1000);
+        };
+
+
+
+    })
+
+    .controller('StoriesCtrl', function ($scope, $location,$rootScope,$http) {
+	$scope.storyList = [];
+
+	$scope.retrieveStories = function(){
+	    console.log("retriving stroies")
+	    var URL = $rootScope.hostname + "/stories" +  "?callback=JSON_CALLBACK";
+	    $http({method: 'JSONP', url: URL}).
+		success(function (data, status) {
+		    $scope.storyList = data;
+		    console.log("fetching FriendList");
+		    //console.log("lastcontactdate: " + data.lastcontactdate);
+		}).
+		error(function (data, status) {
+		    console.log(data);
+		    console.log(status);
+		    
+		});
+	}
+	
+	//retriveStories
+	$scope.retrieveStories();
+	
+        $scope.clickStory = function (story) {
+	    
+            $rootScope.clickedStory = story;
+            $location.path('/app/story');
+        }
+
+    })
+
+    .controller('StoryCtrl', function ($scope,$rootScope) {
+
+        $scope.story = $rootScope.clickedStory;
+
+	$scope.loginData.like = 1;
+	$scope.likecount = function(){
+            $scope.loginData.like++; 
+            console.log('Doing like',$scope.loginData.like);   
+        }
+
+    })
+
+
+    .controller('PlaylistsCtrl', function ($scope) {
+        $scope.playlists = [
+            {title: 'Reggae', id: 1},
+            {title: 'Chill', id: 2},
+            {title: 'Dubstep', id: 3},
+            {title: 'Indie', id: 4},
+            {title: 'Rap', id: 5},
+            {title: 'Cowbell', id: 6}
+        ];
+    })
+
+    .controller('PlaylistCtrl', function ($scope, $stateParams) {
+    });
